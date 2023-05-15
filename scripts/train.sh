@@ -1,4 +1,5 @@
 #! /bin/bash
+# Recommended to run from JoeyNMT directory to avoid unresolved path conflicts
 
 scripts=$(dirname "$0")
 base=$scripts/..
@@ -17,7 +18,7 @@ SECONDS=0
 
 logs=$base/logs
 
-model_name=deen_transformer_regular
+model_name=deen_transformer_pre
 
 mkdir -p $logs
 
