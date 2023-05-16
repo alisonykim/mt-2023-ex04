@@ -3,10 +3,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-
-baseline_f = '../models/baseline/baseline.log'
-prenorm_f = '../models/deen_transformer_pre/validations.txt'
-postnorm_f = '../models/deen_transformer_post/validations.txt'
+# filenames assume that this script is being run from the uppermost exercise directory level
+baseline_f = 'models/baseline/baseline.log'
+prenorm_f = 'models/deen_transformer_pre/validations.txt'
+postnorm_f = 'models/deen_transformer_post/validations.txt'
 
 
 def get_baseline_ppl(log_file):
@@ -54,14 +54,19 @@ ppl_data = {'Validation ppl': steps, 'Baseline': base_ppls, 'Prenorm': pre_ppls,
 # create dataframe with ppl data
 df = pd.DataFrame(data=ppl_data)
 
+# define plot directory
+plot_path = 'ppl_plot'
+
+# export dataframe to CSV
+table_filename = 'ppl_table.csv'
+df.to_csv(os.path.join(plot_path, table_filename), sep='\t', columns=ppl_data.keys(), index=False)
+
 # create line chart to plot val perplexities
 line_chart = sns.lineplot(data=pd.melt(df, ['Validation ppl']), x='Validation ppl', y='value',
                           hue='variable', palette=['green', 'blue', 'orange'])
 line_chart.set(xlabel='Steps', ylabel='Perplexities')
 line_chart.set_title('Validation perplexities')
 plt.show()
-
-plot_path = '../ppl_plot'
 
 if not os.path.exists(plot_path):
     os.makedirs(plot_path)
