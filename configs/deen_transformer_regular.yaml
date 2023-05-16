@@ -1,4 +1,4 @@
-name: "deen_transformer_pre"
+name: "deen_transformer_regular"
 joeynmt_version: "2.0.0"
 
 data:
